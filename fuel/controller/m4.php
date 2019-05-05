@@ -92,13 +92,37 @@ public function action_vbp_modeling() {
         
         $username = Auth::get_screen_name();
 		
-	$prov = Security::strip_tags(Input::post('pNum'));
+		$prov = Security::strip_tags(Input::post('pNum'));
 		if($prov == null){
 			$prov = '060034';
 		}
 		
         $data = Vbp::get_data($prov, $username);
+		//Output data to site
+		$this->template->content = View::forge('m4/vbp_modeling', $data); 
+	
+	}
 		
+public function action_vbp_modeling_calculate(){
+		$data = array();
+		$this->template->title = 'KJMS';
+		$this->template->subtitle = 'VBP Model';
+		
+		$id_info = Auth::get_user_id();
+        $username = ['test'];
+        
+        $username = Auth::get_screen_name();
+		
+		$prov = Security::strip_tags(Input::post('pNum'));
+		
+		
+		if($prov == null){
+			$prov = '060034';
+		}
+		
+		
+		
+		$data = Vbp::get_data($prov, $username);
 		
 		//SAFETY DOMAIN
 		
