@@ -21,17 +21,27 @@ $prov_nums_array = $prov_nums->as_array();
 	}
 	?>
 </select>	
-
+	
     <?php 
+    /*
     if(isset($_POST['formSumbit'])){
 		$provNum = $_POST['formPN'];
 		echo $provNum;
 	}
 	
 	echo Form::input('pNum');
+	*/
+	echo Form::input('pNum', $provider_number[0], array('class' => 'form-control'));
 	echo Form::button('provNum', 'Type in a number from dropdown', array('class' => 'btn btn-default'));
 	echo '<br><br>';
-    echo $hospital_name[0] ?>
+    echo $hospital_name[0] 
+    
+    ?>
+    <div class="rank" style="width: 50px; height: 50px;">
+    	<?php echo Asset::img('Picture1.png',  array('class' => 'cardPhoto')); ?>
+    </div>
+    
+    <br>
 
 <h2>Reimbursement</h2>
                     <table border="1">
