@@ -4,6 +4,9 @@
 <?php
 
 //View for VBP modeling. Controls what the page looks like
+echo Form::open(array('action' => 'index.php/m4/vbp_modeling_calculate', 'method' => 'post')); 
+    
+
 echo Form::open(array('action' => 'index.php/m4/vbp_modeling', 'method' => 'post')); 
     ?>
 <h2>Choose Hospital</h2>
@@ -34,11 +37,16 @@ $prov_nums_array = $prov_nums->as_array();
 	echo Form::input('pNum', $provider_number[0], array('class' => 'form-control'));
 	echo Form::button('provNum', 'Type in a number from dropdown', array('class' => 'btn btn-default'));
 	echo '<br><br>';
-    echo $hospital_name[0] 
-    
+    echo $hospital_name[0];
+    echo Form::close();
     ?>
     <div class="rank" style="width: 50px; height: 50px;">
-    	<?php echo Asset::img('Picture1.png',  array('class' => 'cardPhoto')); ?>
+    	<?php echo Asset::img('Picture1.png',  array('class' => 'cardPhoto')); 
+    	
+    	
+    	echo Form::open(array('action' => 'index.php/m4/vbp_modeling_calculate', 'method' => 'post')); 
+    
+    	?>
     </div>
     
     <br>
