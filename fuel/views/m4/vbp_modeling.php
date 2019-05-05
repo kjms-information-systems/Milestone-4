@@ -4,7 +4,7 @@
 <?php
 
 //View for VBP modeling. Controls what the page looks like
-echo Form::open(array('action' => 'index.php/m3/vbp_modeling', 'method' => 'post')); 
+echo Form::open(array('action' => 'index.php/m4/vbp_modeling', 'method' => 'post')); 
     ?>
 <h2>Choose Hospital</h2>
 <?php
