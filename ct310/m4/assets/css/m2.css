@@ -1,0 +1,97 @@
+.topnav {
+  overflow: hidden;
+  background-color: #000;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #bbb;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+}
+body {
+	background-color: #DCDCDC;
+	min-width: 800px;	
+	margin-left: 3%;
+	margin-right: 3%;
+	position: relative;
+	padding: 20px;
+   font-family: "Verdana", sans-serif;
+}
+h1{
+	color: #00806F;
+	display: inline;
+	font-size: 50px;
+}
+table #category {
+  background: #9F9FA0; 
+  text-align: center;
+}
+table #category{
+  background: #9F9FA0; 
+  text-align: center;
+}
+
+table #measure {
+  background: #9F9FA0; 
+  text-align: center; 
+}
+
+td {
+	min-width: 70px;
+	max-width: 70%px;
+}
+td #categoryCom{
+    width: 10px;
+    
+}
+
+tr {
+	height: 60px;
+}
+
+/*ABOUT PAGE CSS*/
+#aboutHeader{
+color: black;
+padding: 40px;
+text-align: center;
+    
+}
+.card{
+    border: 2px solid #00806F;
+    padding: 10px;
+}
+.cardPhoto{
+    width: 100%
+}
+.cardHolder{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  padding: 20px;
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+}
+.cardh2{
+    color: #00806F;
+}
+/*HOME CSS*/
+.content{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: white;
+  padding: 20px;
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+}
