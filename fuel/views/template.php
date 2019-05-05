@@ -30,7 +30,7 @@
 		<br>
         <footer>
         Part of a <a href="https://www.cs.colostate.edu/~ct310">CT310</a> course project<br>
-		<small>&copy; Copy Right <?php echo date('Y');?> Kiera Lindgren, Marvin Enirquez, Josette Grinslade, Scott Sparks</small>
+		<small>&copy; Copy Right <?php echo date('Y');?> Kiera Lindgren, Marvin Enriquez, Josette Grinslade, Scott Sparks</small>
 	</footer>
 	</div>
 	
