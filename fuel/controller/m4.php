@@ -92,15 +92,12 @@ public function action_vbp_modeling() {
         
         $username = Auth::get_screen_name();
 		
-		
-		$prov = Security::strip_tags(Input::post('pNum'));
-		
-		
+	$prov = Security::strip_tags(Input::post('pNum'));
 		if($prov == null){
 			$prov = '060034';
 		}
 		
-        $data = Vbp::get_data('060034', $username);
+        $data = Vbp::get_data($prov, $username);
 		
 		
 		//SAFETY DOMAIN
@@ -391,7 +388,7 @@ public function action_vbp_modeling() {
 		//REIMBURSEMENT
 		
 		$b_reim = Security::strip_tags(Input::post('b_reim'));
-		if($b_reim == null){
+		if($b_reim != null){
             $data['reimbursement'][0] = $b_reim;
 		}
 		
@@ -409,9 +406,6 @@ public function action_vbp_modeling() {
         $contents = File::read_dir(DOCROOT, 0, array(
                 '\.csv$' => 'file', // or css files
         ));
-        
-        $data = Vbp::get_data($prov, $username);
-        
     	if ( Auth::check())
 	{
        		 //Saving files
