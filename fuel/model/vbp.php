@@ -10,7 +10,7 @@ class Vbp extends \Model {
 		$reimbursement = \DB::select('*')->from('test_medical_provider_charge')->where('provider_number', '=', $provider_number)->execute();
 		$hcahps = \DB::select('*')->from('test_HCAHPS')->where('provider_number', '=', $provider_number)->execute();
 		$efficiency = \DB::select('*')->from('test_efficiency')->where('provider_number', '=', $provider_number)->execute();
-		
+
 		//Fix with current user
 		//$user = \DB::select('*')->from('users')->where('provider_number', '=', $provider_number)->execute();
 		
@@ -31,7 +31,40 @@ class Vbp extends \Model {
 		
 		$efficiency_array = array();
 		$efficiency_array = $efficiency->as_array();
+			
+
+
+		// --------------------------------------------- Comment stuff --------------------------------------------------		
+
+		$comments_array = array();
+
+		$top_comments = \DB::select('*')->from('comment_data')->where('parent_id', '=', '0')->order_by('ranking', 'desc')->execute();		
+		$top_comments_array = array();
+		$top_comments_array = $top_comments->as_array();
 		
+		// Loop through each top level comment, finding it's replies (child comments)
+		for ($i = 0; $i < count($top_comments_array); $i++) {
+			
+			// Add top level comment to output comments
+			array_push($comments_array, $top_comments_array[$i]);
+						
+			// Find all child comments
+			$curr_id = $top_comments_array[$i]['id'];
+			// echo $curr_id;
+			$child_comments = \DB::select('*')->from('comment_data')->where('parent_id', '=', $curr_id)->order_by('ranking', 'desc')->execute();
+			$child_comments_array = array();
+			$child_comments_array = $child_comments->as_array();
+			
+			// Loop through all child comments, adding them to output comments
+			for ($j = 0; $j < count($child_comments_array); $j++) {
+				array_push($comments_array, $child_comments_array[$j]);
+			}
+
+		}		
+
+		// --------------------------------------------- end Comment stuff --------------------------------------------------		
+
+
 		//$user_array = array();
 		//$user_array = $user->as_array();
 		
@@ -99,6 +132,9 @@ class Vbp extends \Model {
 		$csv['hcahps_floor_data'] = [$hcahps[0]['communication_nurses_floor'], $hcahps[0]['communication_doctors_floor'], $hcahps[0]['responsiveness_floor'], $hcahps[0]['care_transition_floor'], $hcahps[0]['communication_medicine_floor'], $hcahps[0]['cleanliness_floor'], $hcahps[0]['discharge_floor'], $hcahps[0]['overall_floor']];
 		
 		$csv['username'] = [$username];
+		
+		$csv['comments'] = [$comments_array/*[0]['comment']*/];
+		
 		
 		//Calculate reimbursement
 		$reim = 0;
