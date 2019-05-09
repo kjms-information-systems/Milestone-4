@@ -407,28 +407,29 @@ $prov_nums_array = $prov_nums->as_array();
 	echo Form::button('frmbutton', 'Calculate VBP', array('class' => 'btn btn-default'));
 	echo '<br><br>';
 	?>
-<?php
-    if (Auth::check())
-		{?>	
 
 <h2>Comments</h2>
                     <table border="1">
                         <tr>
                             <td id="category">Comments</td>
                         </tr>
-                        <tr>
-                            <td><?php 
-	                            echo Form::textarea('com', /*$comments[0][2]['comment']*/"Insert new comment here", array('class' => 'form-control'));
-	                            //var_dump($comments[0]);
-                            ?></td>
-                        </tr>
-                        <?php
+                        
+                        <?php 
+                        
+                        // You can only add a comment if you are logged in
+                        if (Auth::check()) {
+                        	echo "<tr><td>";
+                        	
+                        	// TODO - Have the ability to add comments. This should be seperate from the action_vbp_modeling_calculate action
+	                     	echo Form::textarea('com', /*$comments[0][2]['comment']*/"Insert new comment here", array('class' => 'form-control'));
+	                     	
+	                     	echo "</td></tr>";
+                        }
+                        
                         
                         for ($i = 0; $i < count($comments[0]); $i++) {
                         	echo "<tr>";
-									//echo "<td>";
                         	
-                        	//$curr_id = $comments[0][$i]['id'];
                         	$parent_id = $comments[0][$i]['parent_id'];		// used for checking if comment is a reply of not, not printed
                         	$author_username = $comments[0][$i]['author_username'];                      	
                         	$curr_comment = $comments[0][$i]['comment'];
@@ -437,15 +438,16 @@ $prov_nums_array = $prov_nums->as_array();
                         	$comment_ranking = $comments[0][$i]['ranking'];
                         	$deleted = $comments[0][$i]['deleted'];
                         	
-                        	if($parent_id != '0') {
+                        	// Checks if it is a top level comment. Different ID's can be used for styling
+                        	if($parent_id == 0) {
                         		echo "<td id='comment_top'>";
                         	} else {
                         		echo "<td id='comment_reply'>";
                         		echo "<br> -- reply -- ";
                         	}                    	
 									
+									// Displays comment content, could use some styling
                        		echo "<h4>user: $author_username<i></i>, first posted: $create_time<i></i>, last edited: $edit_time <br></h4>";
-                       		
 									if($deleted) {
 										echo "-- This comment has been deleted --";
 									} else {
@@ -453,10 +455,13 @@ $prov_nums_array = $prov_nums->as_array();
                         		echo "$comment_ranking people found this helpful<br>";
                         	}
                         	
-                        	// Buttons should go here
-                        	// If logged in, have the ability to upvote a comment if you have not upvoted before (check the database)   
-                        	// check if you are the owner of the post. If you are, have the ability to edit (probs difficult) or delete (probs easy) the post                     	
+                        	// TODO - Buttons should go here:
                         	
+                        	// If logged in, have the ability to upvote a comment if you have not upvoted before:
+                        	// Check the comment_upvotes_data database to see if this user (by username) has upvoted this comment
+                        	// if they have not like this comment, display the upvote button
+                        	
+                        	// Check if you are the owner of the post. If you are, have the ability to edit (probs difficult) or delete (probs easy) the post                     	
                         	// if deleted, deleted is set to TRUE in the database, and the ranking is set to some negative value                    	
                         	
 
@@ -467,6 +472,10 @@ $prov_nums_array = $prov_nums->as_array();
 
                         ?>
                     </table>
+<?php
+    if (Auth::check())
+		{?>	
+                    
 <h2>Save this file</h2>
                     <table border="1">
                         <tr>
