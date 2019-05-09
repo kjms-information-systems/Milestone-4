@@ -167,7 +167,7 @@ $prov_nums_array = $prov_nums->as_array();
                             <td id="measure">Benchmark</td>
                             <td id="measure">Baseline Rate</td>
                             <td id="measure">Performance Rate</td>
-                            <td id="measure">Achievement Points</td>
+                            <td id="measure">/~/~/~/~Achievement Points</td>
                             <td id="measure">Improvement Points</td>
                             <td id="measure">Dimension Score</td>
                             
@@ -415,14 +415,63 @@ $prov_nums_array = $prov_nums->as_array();
                     <table border="1">
                         <tr>
                             <td id="category">Comments</td>
-                            <td><?php echo Form::textarea('com', $comments[0], array('class' => 'form-control'));?></td>
                         </tr>
+                        <tr>
+                            <td><?php 
+	                            echo Form::textarea('com', /*$comments[0][2]['comment']*/"Insert new comment here", array('class' => 'form-control'));
+	                            //var_dump($comments[0]);
+                            ?></td>
+                        </tr>
+                        <?php
+                        
+                        for ($i = 0; $i < count($comments[0]); $i++) {
+                        	echo "<tr>";
+									//echo "<td>";
+                        	
+                        	//$curr_id = $comments[0][$i]['id'];
+                        	$parent_id = $comments[0][$i]['parent_id'];		// used for checking if comment is a reply of not, not printed
+                        	$author_username = $comments[0][$i]['author_username'];                      	
+                        	$curr_comment = $comments[0][$i]['comment'];
+                        	$create_time = $comments[0][$i]['create_time'];
+                        	$edit_time = $comments[0][$i]['edit_time'];
+                        	$comment_ranking = $comments[0][$i]['ranking'];
+                        	$deleted = $comments[0][$i]['deleted'];
+                        	
+                        	if($parent_id != '0') {
+                        		echo "<td id='comment_top'>";
+                        	} else {
+                        		echo "<td id='comment_reply'>";
+                        		echo "<br> -- reply -- ";
+                        	}                    	
+									
+                       		echo "<h4>user: $author_username<i></i>, first posted: $create_time<i></i>, last edited: $edit_time <br></h4>";
+                       		
+									if($deleted) {
+										echo "-- This comment has been deleted --";
+									} else {
+                        		echo "<p>$curr_comment <p/><br>";
+                        		echo "$comment_ranking people found this helpful<br>";
+                        	}
+                        	
+                        	// Buttons should go here
+                        	// If logged in, have the ability to upvote a comment if you have not upvoted before (check the database)   
+                        	// check if you are the owner of the post. If you are, have the ability to edit (probs difficult) or delete (probs easy) the post                     	
+                        	
+                        	// if deleted, deleted is set to TRUE in the database, and the ranking is set to some negative value                    	
+                        	
+
+									echo "</td>";   
+									                      	
+                        	echo "</tr>";
+                        }                        
+
+                        ?>
                     </table>
 <h2>Save this file</h2>
                     <table border="1">
                         <tr>
                             <td id="category">File Name</td>
-                            <td><?php echo Form::input('fs', $fileName[0], array('class' => 'form-control'));?></td>
+                            <td><?php //echo Form::input('fs', $fileName[0], array('class' => 'form-control'));?></td>
                         </tr>
                     </table>
     
@@ -457,3 +506,4 @@ $load_name = Form::select('files', 'none', $files);
 	echo '<br><br>';
 }
 echo Form::close();
+
