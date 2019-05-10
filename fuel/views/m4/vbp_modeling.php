@@ -41,8 +41,10 @@ $prov_nums_array = $prov_nums->as_array();
     echo Form::close();
     ?>
     <div class="rank" style="width: 50px; height: 50px;">
-    	<?php echo Asset::img('Picture1.png',  array('class' => 'cardPhoto')); 
-    	
+    	<?php 
+    	if ($tps[0] >= 80 || $provider_number[0] == '060010' || $provider_number[0] == '060014'){
+    		echo Asset::img('Picture1.png',  array('class' => 'cardPhoto')); 
+    	}
     	
     	echo Form::open(array('action' => 'index.php/m4/vbp_modeling_calculate', 'method' => 'post')); 
     
@@ -426,7 +428,7 @@ $prov_nums_array = $prov_nums->as_array();
 	                     	echo "</td></tr>";
                         }
                         
-                        
+                        if (!empty($comments[0])){
                         for ($i = 0; $i < count($comments[0]); $i++) {
                         	echo "<tr>";
                         	
@@ -468,10 +470,12 @@ $prov_nums_array = $prov_nums->as_array();
 									echo "</td>";   
 									                      	
                         	echo "</tr>";
-                        }                        
-
+                        }   
+                        }                     
+  
                         ?>
                     </table>
+                  
 <?php
     if (Auth::check())
 		{?>	
