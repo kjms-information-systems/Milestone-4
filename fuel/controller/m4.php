@@ -78,18 +78,45 @@ class Controller_M4 extends Controller_Template {
 	}
 	
 	public function action_management() {
-        	$data = array();
+        $data = array();
 		$this->template->title = 'KJMS';
 		$this->template->subtitle = 'Management';
 		$this->template->content = View::forge('m4/management', $data);
 
 	}
 	
+	
 // FORM EXAMPLE -------------------------------------------
 	public function action_list() {
 	}
 // --------------------------------------------------------
 //VBP Modeling
+
+public function action_save(){
+		$data = array();
+		$this->template->title = 'KJMS';
+		$this->template->subtitle = 'VBP Model';
+		
+		if ( Auth::check())
+		{
+				 //Saving files
+				$load_name = Security::strip_tags(Input::post('load_name'));
+			
+			//Vbp::put_data("$test.csv", $data);
+			
+				//$save_name = Security::strip_tags(Input::post('fs'));
+			 
+				if ($load_name == null){
+				
+				}else{
+						\DB::select('filename')->from('test_user_saved_data')->execute();
+						Vbp::get_data($load_name, $data);
+				}
+		}
+		
+		$this->template->content = View::forge('m4/vbp_modeling', $data); 
+			
+}
 public function action_vbp_modeling() {
 		$data = array();
 		$this->template->title = 'KJMS';
@@ -438,22 +465,23 @@ public function action_vbp_modeling_calculate(){
         $contents = File::read_dir(DOCROOT, 0, array(
                 '\.csv$' => 'file', // or css files
         ));
-    	if ( Auth::check())
-	{
-       		 //Saving files
-        	$load_name = Security::strip_tags(Input::post('load_name'));
-        
-		//Vbp::put_data("$test.csv", $data);
-		
-		 $save_name = Security::strip_tags(Input::post('fs'));
-		 
-        	if ($save_name == null){
-            
-        	}else{
-     
-            		Vbp::put_data($save_name, $data);
-        	}
-	}
+    	
+		if ( Auth::check())
+		{
+				 //Saving files
+				//$load_name = Security::strip_tags(Input::post('load_name'));
+			
+			//Vbp::put_data("$test.csv", $data);
+			
+				$save_name = Security::strip_tags(Input::post('fs'));
+			 
+				if ($save_name == null){
+				
+				}else{
+						\DB::select('filename')->from('test_user_saved_data')->execute();
+						Vbp::put_data($save_name, $data);
+				}
+		}
 		
 		
 		//Output data to site
