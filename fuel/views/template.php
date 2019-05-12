@@ -20,6 +20,7 @@
             <a href='<?php echo Uri::create('index.php/m4/vbp_modeling'); ?>'>VBP Modeling</a>
 	    <a href=<?php echo Uri::create('index.php/m4/login'); ?>>Login</a>
 	    <a href=<?php echo Uri::create('index.php/m4/logout'); ?>>Logout</a>
+	    <a href=<?php echo Uri::create('index.php/m4/management'); ?>>Management</a>
 	    
         </ul>
     </div>
