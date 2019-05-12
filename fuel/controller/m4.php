@@ -77,6 +77,14 @@ class Controller_M4 extends Controller_Template {
 		$this->template->content = View::forge('m4/logout', $data);
 	}
 	
+	public function action_management() {
+        	$data = array();
+		$this->template->title = 'KJMS';
+		$this->template->subtitle = 'Management';
+		$this->template->content = View::forge('m4/management', $data);
+
+	}
+	
 // FORM EXAMPLE -------------------------------------------
 	public function action_list() {
 	}
