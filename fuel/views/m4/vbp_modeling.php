@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang='en'>
 
 <?php
@@ -218,7 +219,7 @@ $prov_nums_array = $prov_nums->as_array();
                             <td><?php echo $care[4];?> out of 10</td>
                             <td><?php echo $care[5];?> out of 9</td>
                             <td><?php echo $care[6];?> out of 10</td>
-                        </tr>
+                        </tr>   
                         <tr>
                             <td id="category">Communication about Medicines</td>
                             <td><?php echo $hcahps_floor_data[4];?></td>
@@ -405,10 +406,15 @@ $prov_nums_array = $prov_nums->as_array();
 </table>
 
  <?php
+ 
 	echo '<br><br>';
 	echo Form::button('frmbutton', 'Calculate VBP', array('class' => 'btn btn-default'));
 	echo '<br><br>';
+	
+	
+	
 	?>
+
 
 <h2>Comments</h2>
                     <table border="1">
@@ -427,7 +433,7 @@ $prov_nums_array = $prov_nums->as_array();
 	                     	
 	                     	echo "</td></tr>";
                         }
-                        
+                        /*
                         if (!empty($comments[0])){
                         for ($i = 0; $i < count($comments[0]); $i++) {
                         	echo "<tr>";
@@ -471,7 +477,7 @@ $prov_nums_array = $prov_nums->as_array();
 									                      	
                         	echo "</tr>";
                         }   
-                        }                     
+                        }   */                  
   
                         ?>
                     </table>
@@ -480,11 +486,11 @@ $prov_nums_array = $prov_nums->as_array();
     if (Auth::check())
 		{?>	
                     
-<h2>Save this file</h2>
+<h2>Save this Set</h2>
                     <table border="1">
                         <tr>
-                            <td id="category">File Name</td>
-                            <td><?php //echo Form::input('fs', $fileName[0], array('class' => 'form-control'));?></td>
+                            <td id="category">Set Name</td>
+                            <td><?php echo Form::input('fs', "", array('class' => 'form-control'));?></td>
                         </tr>
                     </table>
     
@@ -494,29 +500,41 @@ $prov_nums_array = $prov_nums->as_array();
     
     
     <?php
-   
+    //echo Form::open(array('action' => 'index.php/m4/vbp_modeling_calculate', 'method' => 'post'));
     echo '<br>';
 	echo Form::button('frmbutton', 'Save File', array('class' => 'btn btn-default'));
 	echo '<br><br>';
-	
 	?>
 	
-	<h2>Load File</h2>
+	
+	<h2>Load Private Data Set</h2>
 	
 	<?php
 	
-	$csvs = File::read_dir(DOCROOT, 1, array(
+	/*$csvs = File::read_dir(DOCROOT, 1, array(
                 '\.csv$' => 'file', // or css files
-        ));
+        ));*/
+        $db_files = \DB::select('filename')->from('test_user_saved_data')->execute();
         $files = array();
-        for ($i = 1; $i < count($csvs) - 1; $i++){
-            array_push($files, $csvs[$i]);
-        }
-        
-echo Form::select('files', 'none', $files);
-$load_name = Form::select('files', 'none', $files);
-	echo Form::button('test', 'Load File', array('class' => 'btn btn-default'));
+        $files = $db_files->as_array();
+        $actual_files = array();
+        foreach ($files as $fn){
+			foreach($fn as $filename){
+				array_push($actual_files, $filename) ;
+			} 
+		}
+    
+    
+	echo Form::select('files', 'none', $actual_files);
+	//$load_name = Form::select('files', 'none', $actual_files);
+	echo Form::input('load_name', "", array('class' => 'form-control'));
+	echo Form::button('load_name', 'Load File', array('class' => 'btn btn-default'));
+	
 	echo '<br><br>';
+	echo Form::close();
+    
+    
+	
 }
 echo Form::close();
 
