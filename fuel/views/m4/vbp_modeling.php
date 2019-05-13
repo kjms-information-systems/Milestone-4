@@ -1,9 +1,54 @@
 <!DOCTYPE html>
+<?php ob_end_clean();?>
+<div>
+    <form class="form-horizontal" method="post" name="export"   
+                enctype="multipart/form-data">
+        <div class="form-group">
+                <div class="col-md-4 col-md-offset-4">
+                    <input type="submit" name="Export" class="btn btn-success" value="export to csv"/>
+                <?php
+                
+                $exportString = 
+                $provider_number[0]."\n".
+                $reimbursement[2]."\n".
 
-<html lang='en'>
+                "HAI-1 ".",".$ha1[2].",".$ha1[3]."\n".
+                "HAI-2 ".",".$ha2[2].",".$ha2[3]."\n".
+                "HAI-3 ".",".$ha3[2].",".$ha3[3]."\n".
+                "HAI-4 ".",".$ha4[2].",".$ha4[3]."\n".
+                "HAI-5 ".",".$ha5[2].",".$ha5[3]."\n".
+                "HAI-6 ".",".$ha6[2].",".$ha6[3]."\n".
+                "PSI-90 ".",".$psi90[2].",".$psi90[3]."\n".
+                "PC-01 ".",".$pc01[2].",".$pc01[3]."\n".
+                "MORT-30-AMI ".",".$mortAMI[2].",".$mortAMI[3]."\n".
+                "MORT-30-HF ".",".$mortHF[2].",".$mortHF[3]."\n".
+                "MORT-30-PN ".",".$mortPN[2].",".$mortPN[3]."\n".
+                "MSPB-1 ".",".$MSPB[2].",".$MSPB[3]."\n".
+                "HCAHPS-CWN ".",".$nurses[2].",".$nurses[3]."\n".
+                "HCAHPS-CWD ".",".$doctors[2].",".$doctors[3]."\n".
+                "HCAHPS-RHS ".",".$staff[2].",".$staff[3]."\n".
+                "HCAHPS-CT ".",".$care[2].",".$care[3]."\n".
+                "HCAHPS-CAM ".",".$medicine[2].",".$medicine[3]."\n".
+                "HCAHPS-HCQ ".",".$cleanliness[2].",".$cleanliness[3]."\n".
+                "HCAHPS-DI ".",".$discharge[2].",".$discharge[3]."\n".
+                "HCAHPS-ORH ".",".$overall[2].",".$overall[3]."\n"
+                ;
+                
+                if(isset($_POST["Export"])){
+                    header('Content-Type: application/csv; charset=utf-8');  
+                    header('Content-Disposition: attachment; filename=data.csv');
+                    ob_end_clean();
+                    $s = file_put_contents("php://output", $exportString);    
+                    exit();
+                } 
+                
+                ?>
+                </div>
+        </div>                    
+    </form>           
+</div>
 
 <?php
-
 //View for VBP modeling. Controls what the page looks like
 echo Form::open(array('action' => 'index.php/m4/vbp_modeling_calculate', 'method' => 'post')); 
     
@@ -170,7 +215,7 @@ $prov_nums_array = $prov_nums->as_array();
                             <td id="measure">Benchmark</td>
                             <td id="measure">Baseline Rate</td>
                             <td id="measure">Performance Rate</td>
-                            <td id="measure">/~/~/~/~Achievement Points</td>
+                            <td id="measure">Achievement Points</td>
                             <td id="measure">Improvement Points</td>
                             <td id="measure">Dimension Score</td>
                             
